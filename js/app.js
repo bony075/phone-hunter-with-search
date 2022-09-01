@@ -1,14 +1,21 @@
-const loadPhone = async (searchValue) => {
+const loadPhone = async (searchValue, datalimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchValue}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayPhone(data.data);
+    displayPhone(data.data, datalimit);
 }
-const displayPhone = phones => {
+const displayPhone = (phones, datalimit) => {
     const phoneContainer = document.getElementById('phone-container');
-    phoneContainer.textContent = ' ';
+    phoneContainer.textContent = '';
     // display 20 phone only
-    phones = phones.slice(0, 5);
+    const showAll = document.getElementById('show-all');
+    if (datalimit && phones.length > 5) {
+        phones = phones.slice(0, 5);
+        showAll.classList.remove('d-none');
+    }
+    else {
+        showAll.classList.add('d-none');
+    }
     // no phone found check
     const noPhone = document.getElementById('no-found-message');
     if (phones.length === 0) {
@@ -29,23 +36,37 @@ const displayPhone = phones => {
                 <p class="card-text">Brand Name: ${brand}</p>
             </div>
     </div>
-        `
+        `;
         phoneContainer.appendChild(phoneDiv);
-        // stop loader
-        togglerLoader(false);
-    })
+    });
+    // stop loader
+    togglerLoader(false);
     // console.log(phone);
-}
+};
 
-document.getElementById('btn-search').addEventListener('click', () => {
-    //start loading
+// document.getElementById('btn-search').addEventListener('click', function () {
+//     //start loading
+//     togglerLoader(true);
+//     const searchName = document.getElementById('search-value');
+//     const searchValue = searchName.value;
+//     loadPhone(searchValue);
+//     console.log(searchName);
+// });
+// loadPhone('iphone');
+
+const processSearch = (datalimit) => {
     togglerLoader(true);
     const searchName = document.getElementById('search-value');
     const searchValue = searchName.value;
-    // console.log(searchValue);
-    loadPhone(searchValue);
-})
-// loadPhone();
+    loadPhone(searchValue, datalimit);
+}
+
+document.getElementById('btn-search').addEventListener('click', function () {
+    // start loading
+    processSearch(10);
+    // console.log('setst');
+});
+
 
 const togglerLoader = isLoading => {
     const loaderSection = document.getElementById('loader');
@@ -57,6 +78,12 @@ const togglerLoader = isLoading => {
     }
 
 }
+// not the best way to load show all
+document.getElementById('btn-show-all').addEventListener('click', function () {
+    processSearch();
+
+
+})
 
 
 
