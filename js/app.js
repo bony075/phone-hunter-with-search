@@ -34,6 +34,7 @@ const displayPhone = (phones, datalimit) => {
             <div class="card-body">
                 <h5 class="card-title">Phone Name: ${phone_name}</h5>
                 <p class="card-text">Brand Name: ${brand}</p>
+                <button class="btn btn-primary">Details</button>
             </div>
     </div>
         `;
