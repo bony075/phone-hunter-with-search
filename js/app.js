@@ -44,31 +44,17 @@ const displayPhone = (phones, datalimit) => {
     togglerLoader(false);
     // console.log(phone);
 };
-
-// document.getElementById('btn-search').addEventListener('click', function () {
-//     //start loading
-//     togglerLoader(true);
-//     const searchName = document.getElementById('search-value');
-//     const searchValue = searchName.value;
-//     loadPhone(searchValue);
-//     console.log(searchName);
-// });
-// loadPhone('iphone');
-
 const processSearch = (datalimit) => {
     togglerLoader(true);
     const searchName = document.getElementById('search-value');
     const searchValue = searchName.value;
     loadPhone(searchValue, datalimit);
 }
-
 document.getElementById('btn-search').addEventListener('click', function () {
     // start loading
     processSearch(10);
     // console.log('setst');
 });
-
-
 const togglerLoader = isLoading => {
     const loaderSection = document.getElementById('loader');
     if (isLoading) {
@@ -77,14 +63,8 @@ const togglerLoader = isLoading => {
     else {
         loaderSection.classList.add('d-none');
     }
-
 }
 // not the best way to load show all
 document.getElementById('btn-show-all').addEventListener('click', function () {
     processSearch();
-
-
 })
-
-
-
